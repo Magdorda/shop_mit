@@ -10,6 +10,7 @@ class Menu:
     def __init__(self, db_file):
         self.ui = UserInterface()
         self.db_file = db_file
+        self.c = Customer(self.db_file, self.ui)
         self.switch = {'-1': self.ui.error_message,
                         '1': self.products_list,
                         '2': self.add_to_cart,
@@ -19,8 +20,7 @@ class Menu:
                         '6': self.help_shop,
                         '7': self.end
                        }
-        self.cart = Cart()
-
+        self.cart = Cart(self.ui)
 
     def products_list(self):
         print('Lista produktów: ')
@@ -63,8 +63,8 @@ class Menu:
 
     def finish(self):
         print('Koniec zamoweinia.')
-        c = Customer(self.db_file, self.ui)
-        cust = c.get_customer()
+        cust = self.c.get_customer()
+        self.show_cart()
         print('uzytkownik to: ', cust)
 
     def end(self):

@@ -1,7 +1,6 @@
-from my_shop.ui import UserInterface
-
 class Cart:
-    def __init__(self):
+    def __init__(self, ui):
+        self.ui = ui
         self.content = []
 
     def add_product(self, prod, quantity):
@@ -16,7 +15,7 @@ class Cart:
                 print('Produkt zostal usuniety.')
 
     def update_product(self, prod_id):
-        quantity = UserInterface.input_product_quantity()
+        quantity = self.ui.input_product_quantity()
         if not quantity:
             self.remove_product(prod_id)
             return
@@ -44,7 +43,9 @@ class Cart:
 
 
 if __name__ == '__main__':
-    cr = Cart()
+    from my_shop.ui import UserInterface
+    ui = UserInterface
+    cr = Cart(ui)
     cr.add_product([1,'krówki',22,'to sa krowki'], 12)
     cr.add_product([1, 'serniczek', 224, 'to sa ser'], 12)
     print(str(cr))
