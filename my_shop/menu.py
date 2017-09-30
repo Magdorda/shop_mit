@@ -9,7 +9,7 @@ class Menu:
     def __init__(self, db_file):
         self.ui = UserInterface()
         self.db_file = db_file
-        self.switch = {'-1': self.error_message,
+        self.switch = {'-1': self.ui.error_message,
                         '1': self.products_list,
                         '2': self.add_to_cart,
                         '3': self.show_cart,
@@ -19,8 +19,6 @@ class Menu:
                        }
         self.cart = Cart()
 
-    def error_message(self):
-        print('Niedozwolona operacja! Spróbuj jeszcze raz.')
 
     def products_list(self):
         print('Lista produktów: ')
@@ -34,12 +32,14 @@ class Menu:
 
     def add_to_cart(self):
         print('Dodawanie produktu do koszyka.')
-        prod_id = input('Podaj id produktu: ')
+        prod_id = self.ui.cart_product_id()#input('Podaj id produktu: ')
         with DataSQL(self.db_file) as db:
-            prod = db.get_product(prod_id)
-        if not prod:
-            return  #TODO obsluga gdy nie ma takiego produktu
-        quantity = input('Podaj ilosc produktow: ')
+            try:
+                prod = db.get_product(prod_id)
+            except Exception:
+                self.ui.error_index()
+                return '-1'
+        quantity = self.ui.cart_product_quantity()#input('Podaj ilosc produktow: ')
         quantity = int(quantity)
         self.cart.add_product(prod, quantity)
 
@@ -73,14 +73,14 @@ class Menu:
         print(self.ui.options)
 
         while True:
-            # os.system('clear')
-            # może dodamy czyszczenie ekranu
-            choice_id = self.user_input()
-            choice = self.switch[choice_id]
-            choice()
+            self.main_proggramm()
 
-            # break
-
+    def main_proggramm(self):
+        # os.system('clear')
+        # może dodamy czyszczenie ekranu
+        choice_id = self.user_input()
+        choice = self.switch[choice_id]
+        choice()
 
 if __name__ == '__main__':
     m = Menu('shop_data_base.db')

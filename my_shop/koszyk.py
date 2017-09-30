@@ -1,3 +1,5 @@
+from my_shop.ui import UserInterface
+
 class Cart:
     def __init__(self):
         self.content = []
@@ -6,7 +8,6 @@ class Cart:
         id, name, price, description = prod
         product = {'id': id, 'name': name, 'price': price, 'description': description, 'quantity': quantity}
         self.content.append(product)
-        # print(self.content)
 
     def remove_product(self, prod_id):
         for product in self.content:
@@ -15,7 +16,7 @@ class Cart:
                 print('Produkt zostal usuniety.')
 
     def update_product(self, prod_id):
-        quantity = input('Podaj nową ilość produktu: ')
+        quantity = UserInterface.input_product_quantity()
         if not quantity:
             self.remove_product(prod_id)
             return

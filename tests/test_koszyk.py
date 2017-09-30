@@ -1,3 +1,6 @@
+from unittest.mock import patch
+from unittest import mock
+
 
 def test_add_product():
     from my_shop.koszyk import Cart
@@ -26,11 +29,30 @@ def test_remove_product():
     cr.remove_product(1)
     assert len(cr.content) == 1
 
-# def test_update_product():
-#     from my_shop.koszyk import Cart
-#     cr = Cart()
-#     cr.add_product([1,'krówki',22,'to sa krowki'], 12)
-#     cr.add_product([2, 'serniczek', 224, 'to sa ser'], 3)
-#
-#     assert False #function not testable must be correct
-#     #cr.update_product(2)
+def test_products_list_menu():
+    from my_shop.menu import Menu
+
+    m = Menu('shop_data_base.db')
+    with patch('builtins.input', return_value='1'):
+        m.main_proggramm()
+    assert True
+
+
+#using mock instead input
+def test_add_to_cart():
+    from my_shop.menu import Menu
+    with patch('my_shop.ui.UserInterface.cart_product_id', return_value='1'):
+        with patch('my_shop.ui.UserInterface.cart_product_quantity', return_value='10'):
+            # import my_shop.ui.Cart
+            m = Menu('shop_data_base.db')
+            m.add_to_cart()
+        with patch('my_shop.ui.UserInterface.input_main_menu', return_value='3'):
+            m.main_proggramm()
+
+def test_not_proper_add_to_cart():
+    from my_shop.menu import Menu
+    with patch('my_shop.ui.UserInterface.input_main_menu', return_value='2'):
+        with patch('my_shop.ui.UserInterface.cart_product_id', return_value='21'):
+            m = Menu('shop_data_base.db')
+            m.main_proggramm()
+            m.main_proggramm()
