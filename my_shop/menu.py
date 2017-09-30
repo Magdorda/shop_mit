@@ -18,7 +18,9 @@ class Menu:
                         '1': self.products_list,
                         '2': self.add_to_cart,
                         '3': self.show_cart,
-                        '4': self.edit_cart
+                        '4': self.edit_cart,
+                        '5': self.finish,
+                        '6': self.help_shop
                        }
         self.cart = Cart()
 
@@ -48,20 +50,25 @@ class Menu:
 
     def edit_cart(self):
         print('Edycja koszyka.')
-        prod_id = input('Podaj id produktu do edycji: ')
+        prod_name = input('Podaj nazwe produktu do edycji: ')
         print('1. Usuń produkt\n2. Zmień ilosc produktu')
         choice = input('Wybierz czynnosc edycji: ')
         if choice == '1':
-            self.cart.remove_product(prod_id)
+            self.cart.remove_product(prod_name)
         elif choice == '2':
-            print('edit')
-            self.cart.update_product(prod_id)
+            self.cart.update_product(prod_name)
 
     def user_input(self):
         choice_id = str(input('Wybierz czynnosc: ')).strip()
         if choice_id not in self.switch.keys():
             return '-1'
         return choice_id
+
+    def finish(self):
+        pass
+
+    def help_shop(self):
+        print(self.options)
 
     def run(self):
         print(self.hello)

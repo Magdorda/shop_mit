@@ -8,23 +8,23 @@ class Cart:
         self.content.append(product)
         # print(self.content)
 
-    def remove_product(self, prod_id):
+    def remove_product(self, prod_name):
         for product in self.content:
-            if product['id'] == int(prod_id):
+            if product['name'] == prod_name:
                 self.content.remove(product)
                 print('Produkt zostal usuniety.')
 
-    def update_product(self, prod_id):
+    def update_product(self, prod_name):
         quantity = input('Podaj nową ilość produktu: ')
         if not quantity:
-            self.remove_product(prod_id)
+            self.remove_product(prod_name)
             return
         for product in self.content:
-            if product['id'] == prod_id:
+            if product['name'] == prod_name:
                 product['quantity'] = quantity
 
     def get_cart_content(self):
-        text ='\nProdukty w koszyku: \n'
+        text = '\nProdukty w koszyku: \n'
         for el in self.content:
             text += '{} \t ilość: {}\n'.format(el['name'], el['quantity'])
         return text
