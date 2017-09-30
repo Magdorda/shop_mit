@@ -31,7 +31,9 @@ class Menu:
         if not prod:
             return  #TODO obsluga gdy nie ma takiego produktu
         quantity = input('Podaj ilosc produktow: ')
+        quantity = int(quantity)
         self.cart.add_product(prod, quantity)
+
 
 
 
@@ -46,7 +48,7 @@ class Menu:
             choice = self.switch[choice_id]
             choice()
 
-            break
+            # break
 
 
 if __name__ == '__main__':

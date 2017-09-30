@@ -6,6 +6,7 @@ class Cart:
         id, name, price, description = prod
         product = {'id': id, 'name': name, 'price': price, 'description': description, 'quantity': quantity}
         self.content.append(product)
+        print(self.content)
 
     def delete_product(self):
         pass
