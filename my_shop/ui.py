@@ -8,7 +8,8 @@ class UserInterface:
         3. Podgląd koszyka
         4. Edycja koszyka
         5. Zakończ zamówienie
-        6. Pomoc"""
+        6. Pomoc
+        7. Koniec"""
 
 
     def error_message(self):
@@ -21,6 +22,43 @@ class UserInterface:
         choice_id = str(input('Wybierz czynnosc: ')).strip()
         return choice_id
 
+    def custom_input(self):
+        while True:
+            print('1. Zaloguj \n2.Zarejestruj')
+            choice = input('Wybierz opcje: ')
+            if choice == '1' or choice == '2':
+                return choice
+            print('Wybierz 1 lub 2.')
+
+    def login_name(self):
+        name = input('Podaj nazwe uzytkownika')
+        return name
+
+    def login_pass(self):
+        pass_in = input('Podaj haslo')
+        return pass_in
+
+    def no_custom(self):
+        print('Nie ma tkiego uzytkownika.')
+
+    def incorrect_pass(self):
+        print('Haslo niepoprawne!')
+
+    def register_name(self):
+        user_name = input('Podaj unikalną nazwę użytkownika: ')
+        return user_name
+
+    def register_pass(self):
+        password = input('Wybierz haslo: ')
+        return password
+
+    def existing_name(self):
+        print('Taka nazwa uzytkownika istnieje juz w systemie.')
+
+
+
+    def print_output(self):
+        pass
     def cart_product_id(self):
         val = input('Podaj id produktu: ')
         # if val in self.
@@ -31,7 +69,7 @@ class UserInterface:
         val=input('Podaj ilosc produktow: ')
         return val
 
-    def input_product_quantity():
+    def input_product_quantity(self):
         quantity = int(input('Podaj nową ilość produktu: '))
         return quantity
 

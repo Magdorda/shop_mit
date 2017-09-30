@@ -1,3 +1,4 @@
+import sys
 from my_shop.baza import DataSQL
 from my_shop.koszyk import Cart
 from my_shop.klient import Customer
@@ -15,7 +16,8 @@ class Menu:
                         '3': self.show_cart,
                         '4': self.edit_cart,
                         '5': self.finish,
-                        '6': self.help_shop
+                        '6': self.help_shop,
+                        '7': self.end
                        }
         self.cart = Cart()
 
@@ -61,12 +63,15 @@ class Menu:
 
     def finish(self):
         print('Koniec zamoweinia.')
-        c = Customer(self.db_file)
+        c = Customer(self.db_file, self.ui)
         cust = c.get_customer()
+        print('uzytkownik to: ', cust)
 
+    def end(self):
+        sys.exit(0)
 
     def help_shop(self):
-        print(self.options)
+        print(self.ui.options)
 
     def run(self):
         print(self.ui.hello)

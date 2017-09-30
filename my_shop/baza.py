@@ -37,8 +37,18 @@ class DataSQL:
         return result
 
     def get_customer(self, name):
-        self.cursor.execute('SELECT * FROM customer WHERE user_name = ?', name)
+        self.cursor.execute("SELECT * FROM customer WHERE user_name = ?", (name,))
         result = self.cursor.fetchone()
         return result
 
+    def add_new_customer(self, name, password):
+        self.cursor.execute('INSERT INTO customer (user_name, password) values (?, ?)', (name, password))
+        self.connection.commit()
 
+if __name__ == '__main__':
+    with DataSQL('shop_data_base.db') as db:
+        prod = db.get_product('2')
+        print(prod)
+
+        cust = db.get_customer('Tomek')
+        print(cust)
