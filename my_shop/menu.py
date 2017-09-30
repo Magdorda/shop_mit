@@ -1,8 +1,9 @@
 from my_shop.baza import DataSQL
 from my_shop.koszyk import Cart
+from my_shop.klient import Customer
 from my_shop.ui import UserInterface
 
-import os
+# import os
 
 class Menu:
     def __init__(self, db_file):
@@ -59,7 +60,10 @@ class Menu:
         return choice_id
 
     def finish(self):
-        pass
+        print('Koniec zamoweinia.')
+        c = Customer(self.db_file)
+        cust = c.get_customer()
+
 
     def help_shop(self):
         print(self.options)

@@ -36,4 +36,9 @@ class DataSQL:
         result = self.cursor.fetchone()
         return result
 
+    def get_customer(self, name):
+        self.cursor.execute('SELECT * FROM customer WHERE user_name = ?', name)
+        result = self.cursor.fetchone()
+        return result
+
 
