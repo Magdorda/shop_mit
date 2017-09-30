@@ -13,7 +13,6 @@ class Cart:
             if product['id'] == int(prod_id):
                 self.content.remove(product)
                 print('Produkt zostal usuniety.')
-        print(self.content)
 
     def update_product(self, prod_id):
         quantity = input('Podaj nową ilość produktu: ')

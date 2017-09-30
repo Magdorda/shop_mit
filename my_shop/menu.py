@@ -14,13 +14,11 @@ class Menu:
         4. Edycja koszyka
         5. Zakończ zamówienie
         6. Pomoc"""
-        self.switch = {'1': self.products_list, '2': self.add_to_cart, '4': self.edit_cart}
-        4. Zakończ zamówienie
-        5. Pomoc"""
         self.switch = {'-1': self.error_message,
                         '1': self.products_list,
                         '2': self.add_to_cart,
-                        '3': self.show_cart
+                        '3': self.show_cart,
+                        '4': self.edit_cart
                        }
         self.cart = Cart()
 
@@ -58,11 +56,11 @@ class Menu:
         elif choice == '2':
             print('edit')
             self.cart.update_product(prod_id)
+
     def user_input(self):
         choice_id = str(input('Wybierz czynnosc: ')).strip()
         if choice_id not in self.switch.keys():
             return '-1'
-        print('Wybrano: ', choice_id)
         return choice_id
 
     def run(self):
@@ -72,9 +70,7 @@ class Menu:
         while True:
             # os.system('clear')
             # może dodamy czyszczenie ekranu
-            #choice_id = str(input('Wybierz czynnosc: ')).strip()
             choice_id = self.user_input()
-
             choice = self.switch[choice_id]
             choice()
 
