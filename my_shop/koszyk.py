@@ -25,8 +25,15 @@ class Cart:
 
     def get_cart_content(self):
         text ='\nProdukty w koszyku: \n'
+        cart_sum=0
         for el in self.content:
-            text += '{} \t ilość: {}\n'.format(el['name'], el['quantity'])
+            # suma= lambda: float(el['price'])*float(el['quantity'])
+            cart_sum += el['price']*float(el['quantity'])
+            text += '{name} \t {quantity} \tcena:{price} \t suma:{suma}\n'.format(name=el['name'],
+                                                           quantity='ilość:'+str(el['quantity']),
+                                                           price=el['price'],
+                                                           suma=float(el['price'])*float(el['quantity']))
+        text += 'SUMA ZAMÓWIENIA {0:40}'.format(cart_sum)
         return text
 
     def __str__(self):
