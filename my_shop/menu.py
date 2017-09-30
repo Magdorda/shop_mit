@@ -9,9 +9,10 @@ class Menu:
         1. Lista dostępnych produktów
         2. Dodaj produkt do koszyka
         3. Podgląd koszyka
-        4. Zakończ zamówienie
-        5. Pomoc"""
-        self.switch = {'1': self.products_list, '2': self.add_to_cart}
+        4. Edycja koszyka
+        5. Zakończ zamówienie
+        6. Pomoc"""
+        self.switch = {'1': self.products_list, '2': self.add_to_cart, '4': self.edit_cart}
         self.cart = Cart()
 
     def hello(self):
@@ -34,8 +35,16 @@ class Menu:
         quantity = int(quantity)
         self.cart.add_product(prod, quantity)
 
-
-
+    def edit_cart(self):
+        print('Edycja koszyka.')
+        prod_id = input('Podaj id produktu do edycji: ')
+        print('1. Usuń produkt\n2. Zmień ilosc produktu')
+        choice = input('Wybierz czynnosc edycji: ')
+        if choice == '1':
+            self.cart.remove_product(prod_id)
+        elif choice == '2':
+            print('edit')
+            self.cart.update_product(prod_id)
 
     def run(self):
         print(self.hello)
