@@ -34,7 +34,7 @@ class Menu:
             print(products)
 
     def show_cart(self, customer=None): #todo show cart for particular customer, cart printing shall be in ui
-        content = self.cart.get_cart_content()
+        content = self.cart.show_cart_content()
         print(content)
 
     def add_to_cart(self):

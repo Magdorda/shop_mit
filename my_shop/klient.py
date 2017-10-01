@@ -9,7 +9,7 @@ class Customer:
         name = self.ui.in_login_name()
         custom = self.get_customer_from_db(name)
         if not custom:
-            return
+            return None
         id, user_name, password = custom
         pass_in = self.ui.in_login_password()
         ok = (pass_in == password)
@@ -31,7 +31,7 @@ class Customer:
             if ok:
                 name = try_name
                 break
-            self.ui.existing_name()
+            self.ui.messages_customer['name_exists']
         password = self.ui.in_register_password()
         with DataSQL(self.db_file) as db:
             db.add_new_customer(name, password)

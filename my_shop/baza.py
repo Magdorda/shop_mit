@@ -45,13 +45,27 @@ class DataSQL:
         self.cursor.execute('INSERT INTO customer (user_name, password) values (?, ?)', (name, password))
         self.connection.commit()
 
-    def add_cart_to_order(self,client,cart):
-        pass
+    def add_cart_to_order(self,username, password, cart):
+        #TODO get customer, insert to db user id, order id for each item
+        for item in cart:
+            print(item)
 
-if __name__ == '__main__':
+####temporary tests
+
+def _display_user():
     with DataSQL('shop_data_base.db') as db:
         prod = db.get_product('2')
         print(prod)
 
-        cust = db.get_customer('Tomek')
+        cust = db.get_customer('tomek')
         print(cust)
+
+def _sample_cart_content():
+    content=[{'id': 1, 'name': 'krówki', 'price': 22, 'description': 'to sa krowki', 'quantity': 12}, {'id': 1, 'name': 'serniczek', 'price': 224, 'description': 'to sa ser', 'quantity': 12}]
+    with DataSQL('shop_data_base.db') as db:
+        db.add_cart_to_order('tomek', 'tomek',content)
+
+    dsq = DataSQL('')
+if __name__ == '__main__':
+    # _display_user()
+    _sample_cart_content()

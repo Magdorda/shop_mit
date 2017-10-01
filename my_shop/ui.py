@@ -1,10 +1,9 @@
-
 class UserInterface:
     def __init__(self):
-        self.messages={
-            'hello':'Witaj w sklepie Magdordy i Tomka!',
+        self.messages = {
+            'hello': 'Witaj w sklepie Magdordy i Tomka!',
 
-            'user_options_help_message':"""Wybierz co chcesz zrobić. Menu:
+            'user_options_help_message': """Wybierz co chcesz zrobić. Menu:
         1. Lista dostępnych produktów
         2. Dodaj produkt do koszyka
         3. Podgląd koszyka
@@ -20,13 +19,23 @@ class UserInterface:
             'end_or_order': 'Koniec zamówienia.'
         }
 
-        self.error_messages={#TODO
-            'wrong_operation':'Niedozwolona operacja! Spróbuj jeszcze raz.',
-            'not_such_item':'Nie ma przedmiotu o takim indeksie.',
-            'no_such_index':'Nie ma przedmiotu o takim indeksie.'
+        self.messages_custromer = {
+            'name_exists': 'Taka nazwa uzytkownika istnieje juz w systemie.'
         }
 
-    def error_message(self,error_message='wrong_operation'):
+        self.messages_cart = {
+            'products_in_cart': '\nProdukty w koszyku: \n',
+            'total_order': 'SUMA ZAMÓWIENIA {0:40}',
+            'cart_products': '{name} \t ilość: {quantity} \tcena:{price} \t suma:{suma}\n'
+        }
+
+        self.error_messages = {  # TODO
+            'wrong_operation': 'Niedozwolona operacja! Spróbuj jeszcze raz.',
+            'not_such_item': 'Nie ma przedmiotu o takim indeksie.',
+            'no_such_index': 'Nie ma przedmiotu o takim indeksie.'
+        }
+
+    def error_message(self, error_message='wrong_operation'):
         print(self.error_messages[error_message])
 
     def input_main_menu(self):
@@ -82,8 +91,8 @@ class UserInterface:
         choice = str(input('Wybierz czynnosc edycji: '))
         return choice
 
-    def existing_name(self):
-        print('Taka nazwa uzytkownika istnieje juz w systemie.')
+    # def existing_name(self):
+    #     print('Taka nazwa uzytkownika istnieje juz w systemie.')
 
     def no_custom(self):
         print('Nie ma tkiego uzytkownika.')
@@ -98,7 +107,7 @@ class UserInterface:
         return val
 
     def cart_product_quantity(self):
-        val=input('Podaj ilosc produktow: ')
+        val = input('Podaj ilosc produktow: ')
         return val
 
     def input_product_quantity(self):
@@ -106,3 +115,6 @@ class UserInterface:
         return quantity
 
 
+if __name__ == '__main__':
+    ui = UserInterface()
+    print(ui.messages_cart['products_in_cart'])

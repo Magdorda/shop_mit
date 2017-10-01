@@ -23,29 +23,33 @@ class Cart:
             if product['id'] == prod_id:
                 product['quantity'] = quantity
 
-    def get_cart_content(self): #TODO message should be in UI, method should return list of cart items
-        #TODO show cart content
-        text ='\nProdukty w koszyku: \n'
-        cart_sum=0
+    def get_cart_content(self):
+        return self.content
+
+    def show_cart_content(self):  # TODO message should be in UI, method should return list of cart items
+        # TODO show cart content
+        text = self.ui.messages_cart['products_in_cart']
+        cart_sum = 0
         for el in self.content:
-            # suma= lambda: float(el['price'])*float(el['quantity'])
-            cart_sum += el['price']*float(el['quantity'])
-            text += '{name} \t {quantity} \tcena:{price} \t suma:{suma}\n'.format(name=el['name'],
-                                                           quantity='ilość:'+str(el['quantity']),
-                                                           price=el['price'],
-                                                           suma=float(el['price'])*float(el['quantity']))
-        text += 'SUMA ZAMÓWIENIA {0:40}'.format(cart_sum)
+            cart_sum += el['price'] * float(el['quantity'])
+            text += self.ui.messages_cart['cart_products'].format(name=el['name'],
+                                                                  quantity=el['quantity'],
+                                                                  price=el['price'],
+                                                                  suma=float(el['price']) * float(
+                                                                      el['quantity']))
+        text += self.ui.messages_cart['total_order'].format(cart_sum)
         return text
 
     def __str__(self):
-        return self.get_cart_content()
-
+        return self.show_cart_content()
 
 
 if __name__ == '__main__':
     from my_shop.ui import UserInterface
-    ui = UserInterface
+
+    ui = UserInterface()
     cr = Cart(ui)
-    cr.add_product([1,'krówki',22,'to sa krowki'], 12)
+    cr.add_product([1, 'krówki', 22, 'to sa krowki'], 12)
     cr.add_product([1, 'serniczek', 224, 'to sa ser'], 12)
     print(str(cr))
+    print(cr.get_cart_content())
