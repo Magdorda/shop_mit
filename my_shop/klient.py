@@ -6,12 +6,12 @@ class Customer:
         self.ui = ui
 
     def login(self):
-        name = self.ui.login_name()
+        name = self.ui.in_login_name()
         custom = self.get_customer_from_db(name)
         if not custom:
             return
         id, user_name, password = custom
-        pass_in = self.ui.login_pass()
+        pass_in = self.ui.in_login_password()
         ok = (pass_in == password)
         if not ok:
             self.ui.incorrect_pass()
@@ -25,14 +25,14 @@ class Customer:
 
     def register(self):
         while True:
-            try_name = self.ui.register_name()
+            try_name = self.ui.in_register_name()
             name_db = self.get_customer_from_db(try_name)
             ok = (try_name != name_db)
             if ok:
                 name = try_name
                 break
             self.ui.existing_name()
-        password = self.ui.register_pass()
+        password = self.ui.in_register_password()
         with DataSQL(self.db_file) as db:
             db.add_new_customer(name, password)
         custom = self.get_customer_from_db(name)
@@ -40,7 +40,7 @@ class Customer:
 
     def get_customer(self):
         while True:
-            choice = self.ui.custom_input()
+            choice = self.ui.in_customer()
             if choice == '1':
                 custom = self.login()
                 if custom:
