@@ -16,17 +16,38 @@ class UserInterface:
             'products_list': 'Lista produktów: ',
             'add_to_cart': 'Dodawanie produktu do koszyka.',
             'edit_cart': 'Edycja koszyka.',
-            'edit_cart_choose': '1. Usuń produkt\n2. Zmień ilosc produktu'
+            'edit_cart_choose': '1. Usuń produkt\n2. Zmień ilosc produktu',
+            'end_or_order': 'Koniec zamówienia.'
         }
 
-    def error_message(self):
-        print('Niedozwolona operacja! Spróbuj jeszcze raz.')
+        self.error_messages={#TODO
+            'wrong_operation':'Niedozwolona operacja! Spróbuj jeszcze raz.',
+            'not_such_item':'Nie ma przedmiotu o takim indeksie.',
+            'no_such_index':'Nie ma przedmiotu o takim indeksie.'
+        }
 
-    def error_index(self):
-        print('Nie ma przedmiotu o takim indeksie.')
+    def error_message(self,error_message='wrong_operation'):
+        print(self.error_messages[error_message])
 
     def input_main_menu(self):
         choice_id = str(input('Wybierz czynnosc: ')).strip()
+        return choice_id
+
+    # def user_input(self):  # TODO move this to ui
+    #     choice_id = self.ui.input_main_menu()
+    #     if choice_id not in self.switch.keys():
+    #         return '-1'
+    #     return choice_id
+
+    def validate_input(self, choice_id, menu_keys):
+        '''
+
+        :param choice_id: input from user
+        :param menu_keys: all possible choices
+        :return: choice id if is ok, if not return '-1', '-1' is error
+        '''
+        if choice_id not in menu_keys:
+            return '-1'
         return choice_id
 
     def in_customer(self):
@@ -70,10 +91,6 @@ class UserInterface:
     def incorrect_pass(self):
         print('Haslo niepoprawne!')
 
-
-    def print_output(self):
-        pass
-
     def cart_product_id(self):
         val = input('Podaj id produktu: ')
         # if val in self.
@@ -88,7 +105,4 @@ class UserInterface:
         quantity = int(input('Podaj nową ilość produktu: '))
         return quantity
 
-    @staticmethod
-    def print_output(message):
-        print(message)
 

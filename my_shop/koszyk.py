@@ -23,7 +23,8 @@ class Cart:
             if product['id'] == prod_id:
                 product['quantity'] = quantity
 
-    def get_cart_content(self):
+    def get_cart_content(self): #TODO message should be in UI, method should return list of cart items
+        #TODO show cart content
         text ='\nProdukty w koszyku: \n'
         cart_sum=0
         for el in self.content:
@@ -37,7 +38,6 @@ class Cart:
         return text
 
     def __str__(self):
-        #drukuj ładnie produkty
         return self.get_cart_content()
 
 

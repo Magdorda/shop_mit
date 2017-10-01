@@ -45,6 +45,9 @@ class DataSQL:
         self.cursor.execute('INSERT INTO customer (user_name, password) values (?, ?)', (name, password))
         self.connection.commit()
 
+    def add_cart_to_order(self,client,cart):
+        pass
+
 if __name__ == '__main__':
     with DataSQL('shop_data_base.db') as db:
         prod = db.get_product('2')
