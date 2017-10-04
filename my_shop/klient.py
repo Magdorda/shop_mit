@@ -5,9 +5,9 @@ class Customer:
         self.db_file = db_file
         self.ui = ui
 
-    def login(self):
-        name = self.ui.in_login_name()
-        custom = self.get_customer_from_db(name)
+    def login(self, name, custom): #TODO change all methods, istead in should have parameters
+        # name = self.ui.in_login_name()
+        # custom = self.get_customer_from_db(name)
         if not custom:
             return None
         id, user_name, password = custom
@@ -18,16 +18,16 @@ class Customer:
             return None
         return custom
 
-    def register(self):
+    def register(self, try_name, password):
         while True:
-            try_name = self.ui.in_register_name()
+            # try_name = self.ui.in_register_name()
             name_db = self.get_customer_from_db(try_name)
             ok = (try_name != name_db)
             if ok:
                 name = try_name
                 break
             self.ui.messages_customer['name_exists']
-        password = self.ui.in_register_password()
+        # password = self.ui.in_register_password()
         with DataSQL(self.db_file) as db:
             db.add_new_customer(name, password)
         custom = self.get_customer_from_db(name)
@@ -38,9 +38,9 @@ class Customer:
             custom = db.get_customer(name)
             return custom
 
-    def login_customer(self): #TODO move register to main menu
+    def login_customer(self, choice):
         while True:
-            choice = self.ui.in_customer()
+            # choice = self.ui.in_customer()
             if choice == '1':
                 custom = self.login()
                 if custom:

@@ -13,8 +13,8 @@ class Cart:
                 self.content.remove(product)
                 print('Produkt zostal usuniety.')
 
-    def update_product(self, prod_id):
-        quantity = self.ui.input_product_quantity()
+    def update_product(self, prod_id, quantity=None):
+        # quantity = self.ui.input_product_quantity()
         if not quantity:
             self.remove_product(prod_id)
             return
@@ -25,7 +25,7 @@ class Cart:
     def get_cart_content(self):
         return self.content
 
-    def show_cart_content(self):  # TODO message should be in UI, method should return list of cart items
+    def show_cart_content(self):
         # TODO show cart content
         text = self.ui.messages_cart['products_in_cart']
         cart_sum = 0

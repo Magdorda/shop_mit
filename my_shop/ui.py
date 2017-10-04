@@ -41,14 +41,14 @@ class UserInterface:
         print(self.error_messages[error_message])
 
     def input_main_menu(self):
-        choice_id = str(input('Wybierz czynnosc: ')).strip()
+        choice_id = str(input('Wybierz czynnosc>')).strip()
         return choice_id
 
-    # def user_input(self):  # TODO move this to ui
-    #     choice_id = self.ui.input_main_menu()
-    #     if choice_id not in self.switch.keys():
-    #         return '-1'
-    #     return choice_id
+    def get_arguments(self, arg_number, prompt_text):
+        args=[]
+        for i in range(arg_number):
+            args.append(input(prompt_text))
+        return args
 
     def validate_input(self, choice_id, menu_keys):
         '''
