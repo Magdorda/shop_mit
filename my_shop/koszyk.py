@@ -4,8 +4,7 @@ class Cart:
         self.content = []
 
     def add_product(self, prod, quantity):
-        id, name, price, description = prod
-        product = {'id': id, 'name': name, 'price': price, 'description': description, 'quantity': quantity}
+        product = {'id': prod['id'], 'name': prod['name'], 'price': prod['price'], 'description': prod['description'], 'quantity': quantity}
         self.content.append(product)
 
     def remove_product(self, prod_id):
@@ -43,8 +42,10 @@ class Cart:
     def __str__(self):
         return self.show_cart_content()
 
-
-if __name__ == '__main__':
+'''
+temporary tests
+'''
+def _test_add_products():
     from my_shop.ui import UserInterface
 
     ui = UserInterface()
@@ -53,3 +54,22 @@ if __name__ == '__main__':
     cr.add_product([1, 'serniczek', 224, 'to sa ser'], 12)
     print(str(cr))
     print(cr.get_cart_content())
+
+def _test_add_products2():
+    from my_shop.ui import UserInterface
+
+    content=[{'id': 1, 'name': 'krówki', 'price': 22, 'description': 'to sa krowki', 'quantity': 12}, {'id': 1, 'name': 'serniczek', 'price': 224, 'description': 'to sa ser', 'quantity': 12}]
+
+
+    ui = UserInterface()
+    cr = Cart(ui)
+    cr.add_product(content[0],22)
+    cr.add_product(content[1],33)
+    print(str(cr))
+    print(cr.show_cart_content())
+
+def _test_print_ccontent():
+    pass
+
+if __name__ == '__main__':
+    _test_add_products2()

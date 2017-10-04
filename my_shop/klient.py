@@ -12,16 +12,11 @@ class Customer:
             return None
         id, user_name, password = custom
         pass_in = self.ui.in_login_password()
-        ok = (pass_in == password)
+        ok = (pass_in == custom['password'])
         if not ok:
             self.ui.incorrect_pass()
             return None
         return custom
-
-    def get_customer_from_db(self, name):
-        with DataSQL(self.db_file) as db:
-            custom = db.get_customer(name)
-            return custom
 
     def register(self):
         while True:
@@ -37,6 +32,11 @@ class Customer:
             db.add_new_customer(name, password)
         custom = self.get_customer_from_db(name)
         return custom
+
+    def get_customer_from_db(self, name):
+        with DataSQL(self.db_file) as db:
+            custom = db.get_customer(name)
+            return custom
 
     def get_customer(self):
         while True:

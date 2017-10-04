@@ -12,10 +12,10 @@ import os
 
 
 class Menu:
-    def __init__(self, db_file):
+    def __init__(self, filename_db):
         self.ui = UserInterface()
-        self.db_file = db_file
-        self.customer = Customer(self.db_file, self.ui)
+        self.filename_db = filename_db
+        self.customer = Customer(self.filename_db, self.ui)
         self.switch = {'-1': self.ui.error_message,
                        '1': self.products_list,
                        '2': self.add_to_cart,
@@ -29,7 +29,7 @@ class Menu:
 
     def products_list(self):
         print(self.ui.messages['products_list'])
-        with DataSQL(self.db_file) as db:
+        with DataSQL(self.filename_db) as db:
             products = db.product_list_string()
             print(products)
 
@@ -40,7 +40,7 @@ class Menu:
     def add_to_cart(self):
         print(self.ui.messages['add_to_cart'])
         prod_id = self.ui.cart_product_id()
-        with DataSQL(self.db_file) as db:
+        with DataSQL(self.filename_db) as db:
             try:
                 prod = db.get_product(prod_id)
             except Exception:
@@ -63,8 +63,10 @@ class Menu:
     def finish(self):  # TODO, write to database
         print(self.ui.messages['end_or_order'])
         cust = self.customer.get_customer() #returns (int id, name, passwd)
-        cart_content = self.show_cart(cust) #todo, implement show cart
-        print('uzytkownik to: ', cust) #todo, move show cart method
+        cart_content = self.show_cart(cust) #cart content #todo, make order if user login return success
+        print('uzytkownik to: ', cust['user_name']) #todo, move show cart method
+        with DataSQL(self.filename_db) as db:
+            db.add_cart_to_order(cust['user_name'], self.cart.get_cart_content())
 
     def help_shop(self):
         print(self.ui.messages['user_options_help_message'])
