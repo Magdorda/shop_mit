@@ -6,6 +6,8 @@ def menu(comm):
     if comm == '1':
         with DataSQLAdmin(filename) as db:
             db.get_all_orders()
+    if comm == '2':
+        exit(0)
 
 def start(fn):
     global filename
@@ -19,4 +21,4 @@ def start(fn):
 
 if __name__ == '__main__':
     filename = 'shop_data_base.db'
-    menu('1')
+    start(filename)
