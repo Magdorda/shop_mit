@@ -14,7 +14,6 @@ class Cart:
                 print('Produkt zostal usuniety.')
 
     def update_product(self, prod_id, quantity=None):
-        # quantity = self.ui.input_product_quantity()
         if not quantity:
             self.remove_product(prod_id)
             return

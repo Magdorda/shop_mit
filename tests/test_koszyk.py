@@ -1,6 +1,7 @@
 from unittest.mock import patch
 from unittest import mock
 
+#TODO ALL Unittests need correction
 
 def test_add_product():
     from my_shop.koszyk import Cart

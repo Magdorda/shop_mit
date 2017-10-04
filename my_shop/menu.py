@@ -42,44 +42,34 @@ class Menu:
 
     def add_to_cart(self, prod_id, quantity):
         print(self.ui.messages['add_to_cart'])
-        # prod_id = self.ui.cart_product_id()
         with DataSQL(self.filename_db) as db:
             try:
                 prod = db.get_product(prod_id)
             except Exception:
                 self.ui.error_message('no_such_index')
                 return '-1'
-        # quantity = self.ui.cart_product_quantity()
-        # quantity = int(quantity)
         self.cart.add_product(prod, quantity)
         return 0
 
     def edit_cart(self, prod_name, choice):
-        # prod_name = self.ui.in_product_name()
-        # print(self.ui.messages['edit_cart_choose'])
-        # choice = self.ui.in_edit_cart()
         if choice == '1':
             self.cart.remove_product(prod_name)
         elif choice == '2':
             self.cart.update_product(prod_name)
         return 0
 
-    def register(self, name, password):  # TODO
+    def register(self, name, password):
         pass  # input user credentians
         self.customer.register(name, password)
         print('zarejestrowano użytkownika!')
         return 0
 
-    def finish(self, want_to_finish, name=None, password=None):  # TODO, write to database
-        # print(self.ui.messages['end_or_order'])
-        # cart_content = self.show_cart(cust) #cart content #todo, make order if user login return success
+    def finish(self, want_to_finish, name=None, password=None):
         self.cart.show_cart_content()
-        # if self.ui.in_want_finish() != 'Tak':
         if want_to_finish != 'Tak':
             print('kontynuuj zakupy...')
             return 0
         cust = self.customer.login(name, password)
-        # print('uzytkownik to: ', cust2) #todo, move show cart method
         if cust is None:  # add only if customer exists
             print('Nie ma takiego użytkownika, Zarejestruj się w skelpie M&T!')
         else:
