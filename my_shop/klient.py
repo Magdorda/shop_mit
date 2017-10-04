@@ -5,13 +5,13 @@ class Customer:
         self.db_file = db_file
         self.ui = ui
 
-    def login(self, name, custom): #TODO change all methods, istead in should have parameters
+    def login(self, name, pass_in): #TODO change all methods, istead in should have parameters
         # name = self.ui.in_login_name()
-        # custom = self.get_customer_from_db(name)
+        custom = self.get_customer_from_db(name)
         if not custom:
             return None
-        id, user_name, password = custom
-        pass_in = self.ui.in_login_password()
+        # id, user_name, password = custom
+        # pass_in = self.ui.in_login_password()
         ok = (pass_in == custom['password'])
         if not ok:
             self.ui.incorrect_pass()

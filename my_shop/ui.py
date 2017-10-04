@@ -14,10 +14,10 @@ class UserInterface:
         8. Koniec""",
 
             'products_list': 'Lista produktów: ',
-            'add_to_cart': 'Dodawanie produktu do koszyka.',
-            'edit_cart': 'Edycja koszyka.',
-            'edit_cart_choose': '1. Usuń produkt\n2. Zmień ilosc produktu',
-            'end_or_order': 'Koniec zamówienia, aby kupić podaj login i hasło.',
+            'add_to_cart': 'Dodawanie produktu do koszyka. Podaj id a następnie ilość.',
+            'edit_cart_choose': 'Edycja koszyka.\n1. Usuń produkt\n2. Zmień ilosc produktu',
+            'end_or_order': 'Koniec zamówienia, aby kupić podaj login i hasło.\nCzy chcesz zakończyć zamówienie??? (Tak/Nie)',
+            'register': 'Rejestracja użytkownika: ',
             'end':big_fonts.bye
         }
 
@@ -39,15 +39,27 @@ class UserInterface:
 
     def error_message(self, error_message='wrong_operation'):
         print(self.error_messages[error_message])
+        return 0
 
     def input_main_menu(self):
         choice_id = str(input('Wybierz czynnosc>')).strip()
         return choice_id
 
     def get_arguments(self, arg_number, prompt_text):
+        '''
+        :param arg_number:
+        :param prompt_text:
+        :return: arguments list
+        '''
         args=[]
         for i in range(arg_number):
-            args.append(input(prompt_text))
+            if type(prompt_text) == list:
+                var = input(prompt_text[i%len(prompt_text)])
+            else:
+                var = input(prompt_text)
+            if var == 'Nie' or var == 'exit' or var == -1:
+                return '-1'
+            args.append(var)
         return args
 
     def validate_input(self, choice_id, menu_keys):
