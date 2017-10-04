@@ -12,10 +12,10 @@ import os
 
 
 class Menu:
-    def __init__(self, db_file):
+    def __init__(self, filename_db):
         self.ui = UserInterface()
-        self.db_file = db_file
-        self.customer = Customer(self.db_file, self.ui)
+        self.filename_db = filename_db
+        self.customer = Customer(self.filename_db, self.ui)
         self.switch = {'-1': self.ui.error_message,
                        '1': self.products_list,
                        '2': self.add_to_cart,
@@ -23,13 +23,14 @@ class Menu:
                        '4': self.edit_cart,
                        '5': self.finish,
                        '6': self.help_shop,
-                       '7': self.end
+                       '7': self.register,
+                       '8': self.end
                        }
         self.cart = Cart(self.ui)
 
     def products_list(self):
         print(self.ui.messages['products_list'])
-        with DataSQL(self.db_file) as db:
+        with DataSQL(self.filename_db) as db:
             products = db.product_list_string()
             print(products)
 
@@ -40,7 +41,7 @@ class Menu:
     def add_to_cart(self):
         print(self.ui.messages['add_to_cart'])
         prod_id = self.ui.cart_product_id()
-        with DataSQL(self.db_file) as db:
+        with DataSQL(self.filename_db) as db:
             try:
                 prod = db.get_product(prod_id)
             except Exception:
@@ -60,22 +61,38 @@ class Menu:
         elif choice == '2':
             self.cart.update_product(prod_name)
 
+    def register(self): #TODO
+        pass #input user credentians
+        self.customer.register()
+        print('zarejestrowano użytkownika!')
+
     def finish(self):  # TODO, write to database
         print(self.ui.messages['end_or_order'])
-        cust = self.customer.get_customer() #returns (int id, name, passwd)
-        cart_content = self.show_cart(cust) #todo, implement show cart
-        print('uzytkownik to: ', cust) #todo, move show cart method
+        # cart_content = self.show_cart(cust) #cart content #todo, make order if user login return success
+        self.cart.show_cart_content()
+        if self.ui.in_want_finish() != 'Tak':
+            print('kontynuuj zakupy...')
+            return None
+        cust = self.customer.login()
+        # print('uzytkownik to: ', cust2) #todo, move show cart method
+        if cust is None: #add only if customer exists
+            print('Nie ma takiego użytkownika, Zarejestruj się w skelpie M&T!')
+        else:
+            with DataSQL(self.filename_db) as db:
+                db.add_cart_to_order(cust['user_name'], self.cart.get_cart_content())
+            print('Zamówienie gotowe, produkty powinny dotrzeć do Ciebie w ciągu 10dni.')
 
     def help_shop(self):
         print(self.ui.messages['user_options_help_message'])
 
     def run(self):
-        os.system('cls')  # TODO, windows->cls, unix->clear
-        print(self.ui.messages['hello'])
-        print(self.ui.messages['user_options_help_message'])
-
         while True:
+            os.system('cls')  # TODO, windows->cls, unix->clear
+            print(self.ui.messages['hello'])
+            print(self.ui.messages['user_options_help_message'])
             self.main_proggramm()
+            input("ENTER")
+
 
     def main_proggramm(self):
         choice_id = self.ui.validate_input(self.ui.input_main_menu(),
@@ -84,6 +101,7 @@ class Menu:
         choice()
 
     def end(self):
+        print(self.ui.messages['end'])
         sys.exit(0)
 
 
