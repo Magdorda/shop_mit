@@ -1,8 +1,8 @@
+import my_shop.big_fonts as big_fonts
 class UserInterface:
     def __init__(self):
         self.messages = {
-            'hello': 'Witaj w sklepie Magdordy i Tomka!',
-
+            'hello': big_fonts.welcome,
             'user_options_help_message': """Wybierz co chcesz zrobić. Menu:
         1. Lista dostępnych produktów
         2. Dodaj produkt do koszyka
@@ -10,13 +10,15 @@ class UserInterface:
         4. Edycja koszyka
         5. Zakończ zamówienie
         6. Pomoc
-        7. Koniec""",
+        7. Rejestracja
+        8. Koniec""",
 
             'products_list': 'Lista produktów: ',
             'add_to_cart': 'Dodawanie produktu do koszyka.',
             'edit_cart': 'Edycja koszyka.',
             'edit_cart_choose': '1. Usuń produkt\n2. Zmień ilosc produktu',
-            'end_or_order': 'Koniec zamówienia.'
+            'end_or_order': 'Koniec zamówienia, aby kupić podaj login i hasło.',
+            'end':big_fonts.bye
         }
 
         self.messages_custromer = {
@@ -94,6 +96,10 @@ class UserInterface:
     # def existing_name(self):
     #     print('Taka nazwa uzytkownika istnieje juz w systemie.')
 
+    def in_want_finish(self):
+        print('Czy chcesz zakończyć zamówienie??? (Tak/Nie)')
+        ch = str(input('wybierz opcje>'))
+        return ch
     def no_custom(self):
         print('Nie ma tkiego uzytkownika.')
 

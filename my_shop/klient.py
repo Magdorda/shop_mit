@@ -38,7 +38,7 @@ class Customer:
             custom = db.get_customer(name)
             return custom
 
-    def get_customer(self):
+    def login_customer(self): #TODO move register to main menu
         while True:
             choice = self.ui.in_customer()
             if choice == '1':
@@ -49,6 +49,8 @@ class Customer:
                     self.ui.no_custom()
             elif choice == '2':
                 self.register()
+                print('zarejestrowano użytkownika!!')
+                return None
         return custom
 
 
@@ -56,7 +58,7 @@ if __name__ == '__main__':
     from my_shop.ui import UserInterface
     ui = UserInterface()
     c = Customer('shop_data_base.db', ui)
-    cust = c.get_customer()
+    cust = c.login_customer()
     print(cust)
 
 

@@ -79,7 +79,7 @@ class DataSQL:
         '''
         customer = self.get_customer(username)
         id = customer['id']
-        self.cursor.execute('INSERT INTO "order" (customer_id) values (?)', str(id))
+        self.cursor.execute('INSERT INTO "order" (customer_id) values(?)', (str(id),))
         self.connection.commit()
         self.cursor.execute('SELECT id from "order" ORDER BY id DESC')
         last_order_id = self.cursor.fetchone()['id']

@@ -25,6 +25,11 @@ from customer
 inner join
 order_details on customer.id = order_details.order_id;
 
+"above fixed"
+select customer.id, customer.user_name, order_details.product_id, order_details.quantity
+from customer, "order"
+inner join
+order_details on "order".id = order_details.order_id;
 
 "do the same but instead product id change to product name"
 "this would be good for print function"
@@ -56,6 +61,19 @@ inner join product on order_details.product_id = product.id
 )
 order by id_customer
 ;
+
+"above repaired"
+select
+customer.id as id_customer,
+customer.user_name,
+product.name as product_name,
+order_details.quantity
+from ((customer, "order"
+inner join
+order_details on "order".id = order_details.order_id)
+inner join product on order_details.product_id = product.id
+)
+order by id_customer;
 
 "**********************************"
 "operations on database tests"
