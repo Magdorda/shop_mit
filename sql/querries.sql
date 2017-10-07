@@ -75,6 +75,16 @@ inner join product on order_details.product_id = product.id
 )
 order by id_customer;
 
+
+"print bill"
+select a.id as customer_ID, customer.user_name as name, order_id, b.name as product_name, quantity from customer,
+(select * from "order", order_details where "order".id = order_details.order_id) as a,
+(select * from product) as b
+where
+a.customer_id = customer.id and a.product_id = b.id
+order by
+customer.id;
+
 "**********************************"
 "operations on database tests"
 

@@ -11,22 +11,25 @@ class Customer:
             return None
         ok = (pass_in == custom['password'])
         if not ok:
-            self.ui.incorrect_pass()
+            print(self.ui.messages_customer['incorect_pass'])
             return None
         return custom
 
     def register(self, try_name, password):
-        while True:
-            name_db = self.get_customer_from_db(try_name)
-            ok = (try_name != name_db)
-            if ok:
-                name = try_name
-                break
-        password = self.ui.in_register_password()
+        name_db = self.get_customer_from_db(try_name)
+        db_name = None
+        if isinstance(name_db, dict):
+            db_name = name_db['user_name']
+        ok = (try_name != db_name)
+        if not ok:
+            print('taki użytkownik już istnieje')
+            return '-1'
         with DataSQL(self.db_file) as db:
-            db.add_new_customer(name, password)
-        custom = self.get_customer_from_db(name)
+            db.add_new_customer(try_name, password)
+        custom = self.get_customer_from_db(try_name)
+        print('zarejestrowano użytkownika')
         return custom
+
 
     def get_customer_from_db(self, name):
         with DataSQL(self.db_file) as db:
@@ -40,10 +43,9 @@ class Customer:
                 if custom:
                     break
                 else:
-                    self.ui.no_custom()
+                    print(self.ui.messages_customer['no_such_customer'])
             elif choice == '2':
                 self.register()
-                print('zarejestrowano użytkownika!!')
                 return None
         return custom
 

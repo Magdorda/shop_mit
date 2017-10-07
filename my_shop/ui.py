@@ -22,7 +22,9 @@ class UserInterface:
         }
 
         self.messages_custromer = {
-            'name_exists': 'Taka nazwa uzytkownika istnieje juz w systemie.'
+            'name_exists': 'Taka nazwa uzytkownika istnieje juz w systemie.',
+            'no_such_customer': 'Nie ma tkiego uzytkownika.',
+            'incorect_pass':'Haslo niepoprawne!',
         }
 
         self.messages_cart = {
@@ -72,65 +74,6 @@ class UserInterface:
         if choice_id not in menu_keys:
             return '-1'
         return choice_id
-
-    def in_customer(self):
-        while True:
-            print('1. Zaloguj \n2.Zarejestruj')
-            choice = input('Wybierz opcje: ')
-            if choice == '1' or choice == '2':
-                return choice
-            print('Wybierz 1 lub 2.')
-
-    def in_login_name(self):
-        name = input('Podaj nazwe uzytkownika')
-        return name
-
-    def in_login_password(self):
-        pass_in = input('Podaj haslo')
-        return pass_in
-
-    def in_register_name(self):
-        user_name = input('Podaj unikalną nazwę użytkownika: ')
-        return user_name
-
-    def in_register_password(self):
-        password = input('Wybierz haslo: ')
-        return password
-
-    def in_product_name(self):
-        prod_name = input('Podaj nazwe produktu do edycji: ')
-        return prod_name
-
-    def in_edit_cart(self):
-        choice = str(input('Wybierz czynnosc edycji: '))
-        return choice
-
-    # def existing_name(self):
-    #     print('Taka nazwa uzytkownika istnieje juz w systemie.')
-
-    def in_want_finish(self):
-        print('Czy chcesz zakończyć zamówienie??? (Tak/Nie)')
-        ch = str(input('wybierz opcje>'))
-        return ch
-    def no_custom(self):
-        print('Nie ma tkiego uzytkownika.')
-
-    def incorrect_pass(self):
-        print('Haslo niepoprawne!')
-
-    def cart_product_id(self):
-        val = input('Podaj id produktu: ')
-        # if val in self.
-        #     pass
-        return val
-
-    def cart_product_quantity(self):
-        val = input('Podaj ilosc produktow: ')
-        return val
-
-    def input_product_quantity(self):
-        quantity = int(input('Podaj nową ilość produktu: '))
-        return quantity
 
 
 if __name__ == '__main__':

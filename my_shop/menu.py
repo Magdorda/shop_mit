@@ -10,7 +10,6 @@ from my_shop.ui import UserInterface
 
 import os
 
-
 class Menu:
     def __init__(self, filename_db):
         self.ui = UserInterface()
@@ -42,6 +41,9 @@ class Menu:
 
     def add_to_cart(self, prod_id, quantity):
         print(self.ui.messages['add_to_cart'])
+        if prod_id == '0' or not prod_id.isdigit() or not quantity.isdigit():
+            self.ui.error_message('no_such_index')
+            return '-1'
         with DataSQL(self.filename_db) as db:
             try:
                 prod = db.get_product(prod_id)
@@ -52,6 +54,10 @@ class Menu:
         return 0
 
     def edit_cart(self, prod_name, choice):
+        if choice not in ['1', '2']:
+            self.ui.error_message('no_such_index')
+            return '-1'
+
         if choice == '1':
             self.cart.remove_product(prod_name)
         elif choice == '2':
@@ -59,9 +65,7 @@ class Menu:
         return 0
 
     def register(self, name, password):
-        pass  # input user credentians
         self.customer.register(name, password)
-        print('zarejestrowano użytkownika!')
         return 0
 
     def finish(self, want_to_finish, name=None, password=None):
@@ -93,8 +97,7 @@ class Menu:
 
     def main_proggramm(self):
         command = self.ui.input_main_menu()
-        menu_keys = self.switch.keys()
-        choice_id = self.ui.validate_input(command, menu_keys)
+        choice_id = self.ui.validate_input(command, self.switch.keys())
 
         prompt = 'wybierz polecenie>'
         choice = self.switch[choice_id]
@@ -110,6 +113,9 @@ class Menu:
             args = self.ui.get_arguments(args_number, prompt)
             ret = func(*args)
             if ret == 0:
+                break
+            if ret == '-1':
+                self.ui.error_message()
                 break
 
     def end(self):
